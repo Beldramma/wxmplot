@@ -206,6 +206,9 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
         MenuItem(self, mopts, "Toggle Grid\tCtrl+G",
                  "Toggle Grid Display",
                  self.panel.toggle_grid)
+        MenuItem(self, mopts, "Pan/Zoom\tCtrl+P",
+                 "Pan and Zoom",
+                 self.panel.unzoom_all)
 
         # mopts.AppendSeparator()
 
