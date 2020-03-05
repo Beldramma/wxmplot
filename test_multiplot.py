@@ -23,10 +23,13 @@ def fill_data(pathname):
     Data["power1"]=[]
     Data["power2"]=[]
     
-    Day = pathname.strip().split('\\')[-1]
-    Day = Day.strip().split('.')[0]
-    Month = pathname.strip().split('\\')[-2]
-    Year = pathname.strip().split('\\')[-3]
+    # Fill Year, Month, Day with the filename in format YYMMDD.txt
+    sDate = pathname.strip().split('\\')[-1]
+    Year = sDate[0:2]
+    Month = sDate[2:4]
+    Day = sDate[4:6]
+    Year = "20"+Year
+    # Get back the pathname
     file_path = pathname.replace('\\', '/')
     
     print(file_path)
@@ -35,7 +38,7 @@ def fill_data(pathname):
         # strip: delete beginning and ending characters in parameter
         # file_obj.readline()#permit to jump this line
            for line in file_obj:
-                hour, minute, second, volt1, cur1, pow1, volt2, cur2, pow2 = line.strip().split()
+                hour, minute, second, volt1, cur1, pow1, volt2, cur2, pow2 = line.strip().split(',')
                 dt1 = dt.datetime(int(Year), int(Month), int(Day), int(hour), 
                                   int(minute),int(second))
                 t.append(dt1)
@@ -65,10 +68,12 @@ class OtherFrame(wx.Frame):
         #wx.Frame.__init__(self, parent=parent, title=title)
         t, Data = fill_data(pathname)
         print(pathname)
-        Day = pathname.strip().split('\\')[-1]
-        Day = Day.strip().split('.')[0]
-        Month = pathname.strip().split('\\')[-2]
-        Year = pathname.strip().split('\\')[-3]
+        # Fill Year, Month, Day with the filename in format YYMMDD.txt
+        sDate = pathname.strip().split('\\')[-1]
+        Year = sDate[0:2]
+        Month = sDate[2:4]
+        Day = sDate[4:6]
+        Year = "20"+Year
         date1 = Day +'/'+ Month + '/' + Year
         
         pframe = wxmplot.MultiPlotFrame(parent = parent, rows=2, cols=3, panelsize=(350, 275))
@@ -124,7 +129,7 @@ class MainFrame(wx.Frame):
         panel = MyPanel(self)
         self.Show()
         
-#if __name__ == '__main__':
+if __name__ == '__main__':
     app = wx.App(False)
     frame = MainFrame()
     app.MainLoop()
