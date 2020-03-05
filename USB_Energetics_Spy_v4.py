@@ -43,10 +43,13 @@ def fill_data(pathname):
     Data["power1"]=[]
     Data["power2"]=[]
     
-    Day = pathname.strip().split('\\')[-1]
-    Day = Day.strip().split('.')[0]
-    Month = pathname.strip().split('\\')[-2]
-    Year = pathname.strip().split('\\')[-3]
+    # Fill Year, Month, Day with the filename in format YYMMDD.txt
+    sDate = pathname.strip().split('\\')[-1]
+    Year = sDate[0:2]
+    Month = sDate[2:4]
+    Day = sDate[4:6]
+    Year = "20"+Year
+    # Get back the pathname
     file_path = pathname.replace('\\', '/')
     
     print(file_path)
@@ -55,7 +58,7 @@ def fill_data(pathname):
         # strip: delete beginning and ending characters in parameter
         # file_obj.readline()#permit to jump this line
            for line in file_obj:
-                hour, minute, second, volt1, cur1, pow1, volt2, cur2, pow2 = line.strip().split()
+                hour, minute, second, volt1, cur1, pow1, volt2, cur2, pow2 = line.strip().split(',')
                 #datetime_str="10:02:2020:"+hour+":"+minute+":"+second
                 #time1 = time.mktime(dt.datetime.strptime(datetime_str, "%d:%m:%Y:%H:%M:%S").timetuple())
                 #datetime_str=hour+":"+minute+":"+second
@@ -100,10 +103,12 @@ class OtherFrame(wx.Frame):
         #wx.Frame.__init__(self, parent=parent, title=title)
         t, Data = fill_data(pathname)
         print(pathname)
-        Day = pathname.strip().split('\\')[-1]
-        Day = Day.strip().split('.')[0]
-        Month = pathname.strip().split('\\')[-2]
-        Year = pathname.strip().split('\\')[-3]
+        # Fill Year, Month, Day with the filename in format YYMMDD.txt
+        sDate = pathname.strip().split('\\')[-1]
+        Year = sDate[0:2]
+        Month = sDate[2:4]
+        Day = sDate[4:6]
+        Year = "20"+Year
         date1 = Day +'/'+ Month + '/' + Year
         
         Window1 = wi.get_plot_window(win=1, wintitle = "USB Energetics spy:Voltage", theme = 'matplotlib')
