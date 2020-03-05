@@ -53,10 +53,10 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
                  with_data_process=True, theme=None, **kws):
         if size is None:
             size = (700, 500)
+        print("test")
         kws['style'] = wx.DEFAULT_FRAME_STYLE
         kws['size']  = size
         wx.Frame.__init__(self, parent, -1, title, **kws)
-
         self.SetMinSize((250, 250))
         self.output_title = output_title
         self.exit_callback = exit_callback
@@ -206,9 +206,14 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
         MenuItem(self, mopts, "Toggle Grid\tCtrl+G",
                  "Toggle Grid Display",
                  self.panel.toggle_grid)
-        MenuItem(self, mopts, "Pan/Zoom\tCtrl+P",
-                 "Pan and Zoom",
-                 self.panel.unzoom_all)
+        MenuItem(self, mopts, "Zoom\tCtrl+R",
+                 "Going back to Zoom if Pan previously activated",
+                 self.panel.add_cursor_mode('zoom',
+                 motion = self.panel.zoom_motion,
+                 leftdown = self.panel.zoom_leftdown,
+                 leftup   = self.panel.zoom_leftup))
+        MenuItem(self, mopts, "Pan\tCtrl+W",
+                 "Pan",self.panel.unzoom)
 
         # mopts.AppendSeparator()
 
