@@ -55,7 +55,6 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
                  with_data_process=True, theme=None, **kws):
         if size is None:
             size = (700, 500)
-        print("test")
         kws['style'] = wx.DEFAULT_FRAME_STYLE
         kws['size']  = size
         wx.Frame.__init__(self, parent, -1, title, **kws)
@@ -200,23 +199,21 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
         MenuItem(self, mopts, "Configure Plot\tCtrl+K",
                  "Configure Plot styles, colors, labels, etc",
                  self.panel.configure)
-        # MenuItem(self, mopts, "Zoom Out\tCtrl+Z",
-        #          "Zoom out to full data range",
-        #          self.panel.unzoom)
-        MenuItem(self, mopts, "Zoom Out\tCtrl+Z",
-                 "Zoom out to full data range",
-                 self.toolbar.back)
         MenuItem(self, mopts, "Toggle Legend\tCtrl+L",
                  "Toggle Legend Display",
                  self.panel.toggle_legend)
         MenuItem(self, mopts, "Toggle Grid\tCtrl+G",
                  "Toggle Grid Display",
                  self.panel.toggle_grid)
+        mopts.AppendSeparator()
         MenuItem(self, mopts, "Zoom\tCtrl+R",
                  "Going back to Zoom if Pan previously activated",
                  self.toolbar.zoom)
         MenuItem(self, mopts, "Pan\tCtrl+W",
                  "Pan",self.toolbar.pan)
+        MenuItem(self, mopts, "Zoom Out\tCtrl+Z",
+                 "Zoom out to full data range",
+                 self.toolbar.back)
 
         # mopts.AppendSeparator()
 
