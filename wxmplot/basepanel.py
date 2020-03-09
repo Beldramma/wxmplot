@@ -59,13 +59,13 @@ class BasePanel(wx.Panel):
         self.motion_sbar = None
         self.printer = Printer(self, title=output_title)
         self.add_cursor_mode('report', motion = self.report_motion,
-                             leftdown = self.report_leftdown)
-        self.add_cursor_mode('zoom', motion = self.zoom_motion,
-                             leftdown = self.zoom_leftdown,
-                             leftup   = self.zoom_leftup)
-        self.add_cursor_mode('lasso', motion = self.lasso_motion,
-                             leftdown = self.lasso_leftdown,
-                             leftup   = self.lasso_leftup)
+                            leftdown = self.report_leftdown)
+        # self.add_cursor_mode('zoom', motion = self.zoom_motion,
+        #                      leftdown = self.zoom_leftdown,
+        #                      leftup   = self.zoom_leftup)
+        # self.add_cursor_mode('lasso', motion = self.lasso_motion,
+        #                      leftdown = self.lasso_leftdown,
+        #                      leftup   = self.lasso_leftup)
 
     def addCanvasEvents(self):
         # use matplotlib events
@@ -431,9 +431,15 @@ class BasePanel(wx.Panel):
             elif ckey == 'K':
                 self.configure(event)
             elif ckey == 'Z':
-                self.unzoom(event)
+                # self.unzoom(event)
+                self.toolbar.back()
             elif ckey == 'P':
                 self.canvas.printer.Print(event)
+            elif ckey == 'R':
+                self.toolbar.zoom()
+            elif ckey == 'W':
+                self.toolbar.pan()
+
 
     def __onMouseButtonEvent(self, event=None):
         """ general mouse press/release events. Here, event is

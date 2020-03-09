@@ -11,6 +11,8 @@ import matplotlib
 from functools import partial
 from .plotpanel import PlotPanel
 from .utils import MenuItem, fix_filename
+from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
+from matplotlib.backends.backend_wxagg import NavigationToolbar2WxAgg as NavigationToolbar
 
 class BaseFrame(wx.Frame):
     """
@@ -191,15 +193,19 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
         self.panel.Print(event=event)
 
     def BuildMenu(self):
+        self.toolbar = NavigationToolbar(self.panel.canvas)
+        self.toolbar.Hide()
         mfile = self.Build_FileMenu()
         mopts = wx.Menu()
         MenuItem(self, mopts, "Configure Plot\tCtrl+K",
                  "Configure Plot styles, colors, labels, etc",
                  self.panel.configure)
+        # MenuItem(self, mopts, "Zoom Out\tCtrl+Z",
+        #          "Zoom out to full data range",
+        #          self.panel.unzoom)
         MenuItem(self, mopts, "Zoom Out\tCtrl+Z",
                  "Zoom out to full data range",
-                 self.panel.unzoom)
-
+                 self.toolbar.back)
         MenuItem(self, mopts, "Toggle Legend\tCtrl+L",
                  "Toggle Legend Display",
                  self.panel.toggle_legend)
@@ -208,12 +214,9 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
                  self.panel.toggle_grid)
         MenuItem(self, mopts, "Zoom\tCtrl+R",
                  "Going back to Zoom if Pan previously activated",
-                 self.panel.add_cursor_mode('zoom',
-                 motion = self.panel.zoom_motion,
-                 leftdown = self.panel.zoom_leftdown,
-                 leftup   = self.panel.zoom_leftup))
+                 self.toolbar.zoom)
         MenuItem(self, mopts, "Pan\tCtrl+W",
-                 "Pan",self.panel.unzoom)
+                 "Pan",self.toolbar.pan)
 
         # mopts.AppendSeparator()
 
