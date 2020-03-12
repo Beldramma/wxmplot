@@ -140,6 +140,7 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
 
         self.panel = PlotPanel(self, **panelkws)
         self.toolbar = NavigationToolbar(self.panel.canvas)
+        self.toolbar.Hide()
         self.panel.messenger = self.write_message
         self.panel.nstatusbar = sbar.GetFieldsCount()
         sizer.Add(self.panel, 1, wx.EXPAND)
