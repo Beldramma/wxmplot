@@ -11,7 +11,6 @@ import matplotlib
 from functools import partial
 from .plotpanel import PlotPanel
 from .utils import MenuItem, fix_filename
-from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
 from matplotlib.backends.backend_wxagg import NavigationToolbar2WxAgg as NavigationToolbar
 
 class BaseFrame(wx.Frame):
@@ -191,9 +190,23 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
     def Print(self, event=None):
         self.panel.Print(event=event)
 
-    def BuildMenu(self):
+    def Pan(self, event=None ):
+        self.panel.cursor_mode = 'report'
         self.toolbar = NavigationToolbar(self.panel.canvas)
         self.toolbar.Hide()
+        self.toolbar.pan()
+
+    def Zoom(self, event=None ):
+        if(self.toolbar._active == 'PAN'):
+            self.toolbar.pan()
+        self.panel.cursor_mode = 'zoom'
+
+    # def Zoom_on_X(self, event=None ):
+    #     if(self.toolbar._active == 'PAN'):
+    #         self.toolbar.pan()
+    #     self.panel.cursor_mode = 'zoom on x'
+
+    def BuildMenu(self):
         mfile = self.Build_FileMenu()
         mopts = wx.Menu()
         MenuItem(self, mopts, "Configure Plot\tCtrl+K",
@@ -208,12 +221,15 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
         mopts.AppendSeparator()
         MenuItem(self, mopts, "Zoom\tCtrl+R",
                  "Going back to Zoom if Pan previously activated",
-                 self.toolbar.zoom)
+                 self.Zoom)
+        MenuItem(self, mopts, "Zoom on X\tCtrl+X",
+                 "Zoom on X only",
+                 self.Zoom_on_X)
         MenuItem(self, mopts, "Pan\tCtrl+W",
-                 "Pan",self.toolbar.pan)
+                 "Pan",self.Pan)
         MenuItem(self, mopts, "Zoom Out\tCtrl+Z",
                  "Zoom out to full data range",
-                 self.toolbar.back)
+                 self.panel.unzoom)
 
         # mopts.AppendSeparator()
 
