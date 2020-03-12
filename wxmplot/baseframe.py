@@ -194,7 +194,6 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
 
     def Pan(self, event=None ):
         self.panel.cursor_mode = 'report'
-        self.toolbar.Hide()
         self.toolbar.pan()
 
     def Zoom(self, event=None ):
@@ -202,10 +201,10 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
             self.toolbar.pan()
         self.panel.cursor_mode = 'zoom'
 
-    # def Zoom_on_X(self, event=None ):
-    #     if(self.toolbar._active == 'PAN'):
-    #         self.toolbar.pan()
-    #     self.panel.cursor_mode = 'zoom on x'
+    def Zoom_on_X(self, event=None ):
+        if(self.toolbar._active == 'PAN'):
+            self.toolbar.pan()
+        self.panel.cursor_mode = 'zoom on x'
 
     def BuildMenu(self):
         mfile = self.Build_FileMenu()
