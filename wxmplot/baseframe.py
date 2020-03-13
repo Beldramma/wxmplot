@@ -206,6 +206,11 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
             self.toolbar.pan()
         self.panel.cursor_mode = 'zoom on x'
 
+    def Zoom_on_Y(self, event=None ):
+        if(self.toolbar._active == 'PAN'):
+            self.toolbar.pan()
+        self.panel.cursor_mode = 'zoom on y'
+
     def BuildMenu(self):
         mfile = self.Build_FileMenu()
         mopts = wx.Menu()
@@ -225,6 +230,9 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
         MenuItem(self, mopts, "Zoom on X\tCtrl+X",
                  "Zoom on X only",
                  self.Zoom_on_X)
+        MenuItem(self, mopts, "Zoom on Y\tCtrl+Y",
+                 "Zoom on Y only",
+                 self.Zoom_on_Y)
         MenuItem(self, mopts, "Pan\tCtrl+W",
                  "Pan",self.Pan)
         MenuItem(self, mopts, "Zoom Out\tCtrl+Z",
