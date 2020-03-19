@@ -200,16 +200,19 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
         if(self.toolbar._active == 'PAN'):
             self.toolbar.pan()
         self.panel.cursor_mode = 'zoom'
+        self.toolbar.set_cursor(matplotlib.backend_tools.cursors.SELECT_REGION)
 
     def Zoom_on_X(self, event=None ):
         if(self.toolbar._active == 'PAN'):
             self.toolbar.pan()
         self.panel.cursor_mode = 'zoom on x'
+        self.toolbar.set_cursor(matplotlib.backend_tools.cursors.SELECT_REGION)
 
     def Zoom_on_Y(self, event=None ):
         if(self.toolbar._active == 'PAN'):
             self.toolbar.pan()
         self.panel.cursor_mode = 'zoom on y'
+        self.toolbar.set_cursor(matplotlib.backend_tools.cursors.SELECT_REGION)
 
     def BuildMenu(self):
         mfile = self.Build_FileMenu()
