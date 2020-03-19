@@ -6,6 +6,7 @@
 import wx
 import matplotlib
 from functools import partial
+from matplotlib.backends.backend_wxagg import NavigationToolbar2WxAgg as NavigationToolbar
 
 from .plotpanel import PlotPanel
 from .baseframe import BaseFrame
@@ -151,6 +152,8 @@ class MultiPlotFrame(BaseFrame):
         self.SetSizerAndFit(sizer)
 
     def BuildMenu(self):
+        self.toolbar = NavigationToolbar(self.panel.canvas)
+        self.toolbar.Hide()
         mfile = self.Build_FileMenu()
         mopts = wx.Menu()
         MenuItem(self, mopts, "Configure Plot\tCtrl+K",
@@ -164,9 +167,20 @@ class MultiPlotFrame(BaseFrame):
                  self.on_toggle_grid)
 
         mopts.AppendSeparator()
+        MenuItem(self, mopts, "Zoom\tCtrl+R",
+                 "Going back to Zoom if Pan previously activated",
+                 self.Zoom)
+        MenuItem(self, mopts, "Zoom on X\tCtrl+X",
+                 "Zoom on X only",
+                 self.Zoom_on_X)
+        MenuItem(self, mopts, "Zoom on Y\tCtrl+Y",
+                 "Zoom on Y only",
+                 self.Zoom_on_Y)
+        MenuItem(self, mopts, "Pan\tCtrl+W",
+                 "Pan",self.Pan)
         MenuItem(self, mopts, "Zoom Out\tCtrl+Z",
                  "Zoom out to full data range",
-                 self.on_unzoom)
+                 self.panel.unzoom)
 
         mhelp = wx.Menu()
         MenuItem(self, mhelp, "Quick Reference",
