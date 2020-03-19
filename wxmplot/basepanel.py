@@ -462,6 +462,11 @@ class BasePanel(wx.Panel):
                     self.toolbar.pan()
                 self.cursor_mode = 'zoom on y'
                 self.toolbar.set_cursor(matplotlib.backend_tools.cursors.SELECT_REGION)
+            # elif ckey == 'L':
+            #     if(self.toolbar._active == 'PAN'):
+            #         self.toolbar.pan()
+            #     self.cursor_mode = 'lasso'
+            #     self.toolbar.set_cursor(matplotlib.backend_tools.cursors.SELECT_REGION)
 
     def __onMouseButtonEvent(self, event=None):
         """ general mouse press/release events. Here, event is

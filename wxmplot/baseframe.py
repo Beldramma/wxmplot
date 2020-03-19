@@ -214,6 +214,12 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
         self.panel.cursor_mode = 'zoom on y'
         self.toolbar.set_cursor(matplotlib.backend_tools.cursors.SELECT_REGION)
 
+    # def Lasso(self, event = None):
+    #     if(self.toolbar._active == 'PAN'):
+    #         self.toolbar.pan()
+    #     self.panel.cursor_mode = 'lasso'
+    #     self.toolbar.set_cursor(matplotlib.backend_tools.cursors.SELECT_REGION)
+
     def BuildMenu(self):
         mfile = self.Build_FileMenu()
         mopts = wx.Menu()
@@ -238,6 +244,8 @@ Matt Newville <newville@cars.uchicago.edu>""" % __version__
                  self.Zoom_on_Y)
         MenuItem(self, mopts, "Pan\tCtrl+W",
                  "Pan",self.Pan)
+        # MenuItem(self, mopts, "Lasso\tCtrl+W",
+        #          "Lasso mode",self.Lasso)
         MenuItem(self, mopts, "Zoom Out\tCtrl+Z",
                  "Zoom out to full data range",
                  self.panel.unzoom)
